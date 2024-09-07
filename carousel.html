@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Carousel</title>
+    <style>
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 300px;
+            height: 200px;
+            position: relative;
+        }
+        .carousel img {
+            min-width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel .next, .carousel .prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .carousel .next { right: 10px; }
+        .carousel .prev { left: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="carousel">
+    <button class="prev">❮</button>
+    <img src="https://via.placeholder.com/300x200?text=1" alt="1">
+    <img src="https://via.placeholder.com/300x200?text=2" alt="2">
+    <img src="https://via.placeholder.com/300x200?text=3" alt="3">
+    <button class="next">❯</button>
+</div>
+
+<script>
+    let index = 0;
+    const images = document.querySelectorAll('.carousel img');
+    const nextButton = document.querySelector('.next');
+    const prevButton = document.querySelector('.prev');
+
+    function showSlide(i) {
+        index = (i + images.length) % images.length;
+        images.forEach(img => img.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function nextSlide() {
+        showSlide(++index);
+    }
+
+    nextButton.onclick = nextSlide;
+    prevButton.onclick = () => showSlide(--index);
+
+    setInterval(nextSlide, 3000); // Gambar akan berubah setiap 3 detik
+</script>
+
+</body>
+</html>
